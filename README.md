@@ -20,6 +20,12 @@
 
 项目为 Maven Java 控制台程序，主入口为 `com.lzl.experiment13.MainApp`。运行后依次演示模板方法模式银行利息计算、访问者模式员工信息管理，并执行 `Experiment13TestRunner` 中的控制台测试断言。
 
+## GitHub 仓库
+
+公开仓库地址：https://github.com/heixuan-vsmenghu/experiment13-template-visitor
+
+老师可以通过该仓库直接查看源码、README、运行结果、实验报告、EA 工程文件和提交记录。
+
 ## 模式说明
 
 模板方法模式部分：
@@ -107,4 +113,8 @@ java -cp target/experiment13-template-visitor-1.0.0.jar com.lzl.experiment13.Mai
 
 ## Git 说明
 
-本实验文档未明确要求 GitHub 或 Gitee 远程仓库，因此只完成本地 `git init` 与 `git commit`，不填写虚构远程仓库地址。
+本项目已建立本地 Git 仓库，并推送到 GitHub 公开仓库：
+
+https://github.com/heixuan-vsmenghu/experiment13-template-visitor
+
+仓库中包含源码、EA 工程文件、Word 实验报告、运行结果、Maven 构建结果、项目结构说明和截图文件，便于老师直接查看完整实验材料。
