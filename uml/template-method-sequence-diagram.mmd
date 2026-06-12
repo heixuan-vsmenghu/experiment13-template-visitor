@@ -1,0 +1,27 @@
+sequenceDiagram
+actor client as client:BankInterestDemo
+participant repository as repository:AccountRepository
+participant currentCalculator as currentCalculator:CurrentAccountInterestCalculator
+participant savingCalculator as savingCalculator:SavingAccountInterestCalculator
+participant currentAccount as currentAccount:BankAccount
+participant savingAccount as savingAccount:BankAccount
+
+client->>repository: create AccountRepository
+client->>repository: addAccount(currentAccount)
+client->>repository: addAccount(savingAccount)
+client->>currentCalculator: create(repository)
+client->>currentCalculator: calculateInterest("C001")
+currentCalculator->>currentCalculator: queryAccount("C001")
+currentCalculator->>repository: findByAccountNo("C001")
+repository-->>currentCalculator: currentAccount
+currentCalculator->>currentCalculator: checkAccount(currentAccount)
+currentCalculator->>currentCalculator: doCalculateInterest(currentAccount)
+currentCalculator->>currentCalculator: displayInterest(currentAccount, interest)
+client->>savingCalculator: create(repository)
+client->>savingCalculator: calculateInterest("S001")
+savingCalculator->>savingCalculator: queryAccount("S001")
+savingCalculator->>repository: findByAccountNo("S001")
+repository-->>savingCalculator: savingAccount
+savingCalculator->>savingCalculator: checkAccount(savingAccount)
+savingCalculator->>savingCalculator: doCalculateInterest(savingAccount)
+savingCalculator->>savingCalculator: displayInterest(savingAccount, interest)

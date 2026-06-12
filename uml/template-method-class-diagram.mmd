@@ -1,0 +1,57 @@
+classDiagram
+direction LR
+
+class BankAccount {
+  -String accountNo
+  -String userName
+  -double balance
+  -double annualRate
+  -int months
+  -String accountType
+  +BankAccount(...)
+  +getAccountNo() String
+  +getUserName() String
+  +getBalance() double
+  +getAnnualRate() double
+  +getMonths() int
+  +getAccountType() String
+  +toString() String
+}
+
+class AccountRepository {
+  -Map~String, BankAccount~ accounts
+  +AccountRepository()
+  +findByAccountNo(accountNo: String) BankAccount
+  +addAccount(account: BankAccount) void
+}
+
+class InterestCalculatorTemplate {
+  #AccountRepository repository
+  +final calculateInterest(accountNo: String) void
+  +queryAccount(accountNo: String) BankAccount
+  +checkAccount(account: BankAccount) void
+  +doCalculateInterest(account: BankAccount)* double
+  +displayInterest(account: BankAccount, interest: double) void
+}
+
+class CurrentAccountInterestCalculator {
+  +CurrentAccountInterestCalculator(repository: AccountRepository)
+  +doCalculateInterest(account: BankAccount) double
+}
+
+class SavingAccountInterestCalculator {
+  +SavingAccountInterestCalculator(repository: AccountRepository)
+  +doCalculateInterest(account: BankAccount) double
+}
+
+class BankInterestDemo {
+  +run() void
+}
+
+InterestCalculatorTemplate <|-- CurrentAccountInterestCalculator
+InterestCalculatorTemplate <|-- SavingAccountInterestCalculator
+InterestCalculatorTemplate --> AccountRepository : repository
+AccountRepository o-- "0..*" BankAccount : accounts
+BankInterestDemo ..> AccountRepository
+BankInterestDemo ..> CurrentAccountInterestCalculator
+BankInterestDemo ..> SavingAccountInterestCalculator

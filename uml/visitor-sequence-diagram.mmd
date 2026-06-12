@@ -1,0 +1,32 @@
+sequenceDiagram
+actor client as client:VisitorDemo
+participant employeeList as employeeList:EmployeeList
+participant fullTimeEmployee as fullTimeEmployee:FullTimeEmployee
+participant temporaryEmployee as temporaryEmployee:TemporaryEmployee
+participant hrVisitor as hrVisitor:HRDepartmentVisitor
+participant financeVisitor as financeVisitor:FinanceDepartmentVisitor
+
+client->>employeeList: create EmployeeList
+client->>fullTimeEmployee: create FullTimeEmployee objects
+client->>temporaryEmployee: create TemporaryEmployee objects
+client->>employeeList: addEmployee(...)
+client->>hrVisitor: create HRDepartmentVisitor
+client->>employeeList: accept(hrVisitor)
+loop 遍历员工列表
+  employeeList->>fullTimeEmployee: accept(hrVisitor)
+  fullTimeEmployee->>hrVisitor: visit(this)
+  employeeList->>temporaryEmployee: accept(hrVisitor)
+  temporaryEmployee->>hrVisitor: visit(this)
+end
+client->>hrVisitor: getReport()
+hrVisitor-->>client: 工时汇总报告
+client->>financeVisitor: create FinanceDepartmentVisitor
+client->>employeeList: accept(financeVisitor)
+loop 遍历员工列表
+  employeeList->>fullTimeEmployee: accept(financeVisitor)
+  fullTimeEmployee->>financeVisitor: visit(this)
+  employeeList->>temporaryEmployee: accept(financeVisitor)
+  temporaryEmployee->>financeVisitor: visit(this)
+end
+client->>financeVisitor: getReport()
+financeVisitor-->>client: 工资汇总报告
